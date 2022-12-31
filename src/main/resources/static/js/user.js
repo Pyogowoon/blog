@@ -7,10 +7,11 @@ init: function(){
          this.save();
     });
 
-      $("#btn-login").on("click", ()=>{ //function(){} 대신 ()=>{} 사용 이유는
-        // this를 바인딩하기 위해서 this의 window 객체 호출을 막기위함으로 알고있으면 된다.
-             this.login();
-        });
+// 구 로그인 영역
+//      $("#btn-login").on("click", ()=>{ //function(){} 대신 ()=>{} 사용 이유는
+//        // this를 바인딩하기 위해서 this의 window 객체 호출을 막기위함으로 알고있으면 된다.
+//             this.login();
+//        });
  },
 
 save: function(){
@@ -26,7 +27,7 @@ save: function(){
          // ajax가 통신을 성공하고 서버가 json을 리턴해주면 자동으로 자바 오브젝트로 변환
              $.ajax({
                   type: "POST",
-                   url: "/blog/api/user",
+                   url: "/auth/joinProc",
                    data: JSON.stringify(data), //http body 데이터
                    contentType:"application/json; charset=utf-8", //body데이터가 어떤 타입인지
                    dataType:"json" //요청을 서버로해서 응답이 왔을 때 기본적으로 모든것이 문자열인데,
@@ -36,40 +37,41 @@ save: function(){
 
                      alert("회원가입이 완료되었습니다.");
      //                console.log(resp);
-                     location.href="/blog";
+                     location.href="/";
              }).fail(function(error){
                  alert(JSON.stringify(error));
              });
 
          },
 
-         login: function(){
-
-                      let data = {
-                          username: $("#username").val(),
-                          password: $("#password").val()
-
-                      };
-
-                      $.ajax({
-                           type: "POST",
-                            url: "/blog/api/user/login",
-                            data: JSON.stringify(data), //http body 데이터
-                            contentType:"application/json; charset=utf-8", //body데이터가 어떤 타입인지
-                            dataType:"json" //요청을 서버로해서 응답이 왔을 때 기본적으로 모든것이 문자열인데,
-                             //생긴게 json이라면 javascript 오브젝트로 변경해줌
-
-                      }).done(function(resp){ //응답 값이 여기로 담김, json이 object로 변환되서 이곳에
-
-                              alert("로그인이 완료되었습니다..");
-              //                console.log(resp);
-                              location.href="/blog";
-                      }).fail(function(error){
-                          alert(JSON.stringify(error));
-                      });
-
-
-         }
+//구 로그인 영역
+//         login: function(){
+//
+//                      let data = {
+//                          username: $("#username").val(),
+//                          password: $("#password").val()
+//
+//                      };
+//
+//                      $.ajax({
+//                           type: "POST",
+//                            url: "/api/user/login",
+//                            data: JSON.stringify(data), //http body 데이터
+//                            contentType:"application/json; charset=utf-8", //body데이터가 어떤 타입인지
+//                            dataType:"json" //요청을 서버로해서 응답이 왔을 때 기본적으로 모든것이 문자열인데,
+//                             //생긴게 json이라면 javascript 오브젝트로 변경해줌
+//
+//                      }).done(function(resp){ //응답 값이 여기로 담김, json이 object로 변환되서 이곳에
+//
+//                              alert("로그인이 완료되었습니다..");
+//              //                console.log(resp);
+//                              location.href="/";
+//                      }).fail(function(error){
+//                          alert(JSON.stringify(error));
+//                      });
+//
+//
+//         }
         }
 
     index.init();
