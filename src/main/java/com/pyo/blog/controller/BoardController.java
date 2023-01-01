@@ -14,7 +14,7 @@ public class BoardController {
 
     @GetMapping({"","/"})
     public String index(@AuthenticationPrincipal PrincipalDetail principal){
-       System.out.println("로그인 사용자 아이디 : "+principal.getUsername());
+
         return "index";  //yml에 지정해줬음
 
     }
