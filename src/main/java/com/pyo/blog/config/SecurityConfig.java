@@ -42,7 +42,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()  //csrf 토튼 비활성 (테스트시 걸어두는게 좋다)
                 .authorizeRequests()
-                .antMatchers("/","/blog","/auth/**","/js/**","/css/**","image/**","/dummy/**","/board/{id}")
+                .antMatchers("/","/blog","/auth/**","/js/**","/css/**","image/**","/dummy/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -61,14 +61,17 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+
+    // 시큐리티가 대신 로그인해주는데 password를 가로채기를 하는데
+    //해당 password 가 어떤걸로 hash가 되어 회원가입되었는지 알아야
+    //같은 해쉬로 암호화 해서 DB에있는 해쉬와 비교할 수 있음
+    // 없으면 비밀번호 비교를 못함
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
     }
 
 
-// 시큐리티가 대신 로그인해주는데 password를 가로채기를 하는데
-    //해당 password 가 어떤걸로 hash가 되어 회원가입되었는지 알아야
-    //같은 해쉬로 암호화 해서 DB에있는 해쉬와 비교할 수 있음
 
 //    public class MyCustom
 //    @Override
