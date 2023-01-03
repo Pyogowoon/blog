@@ -25,7 +25,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //auto_increment
 
-    @Column(nullable = false, length = 30 , unique = true)
+    @Column(nullable = false, length = 1000 , unique = true)
     private String username;
 
     @Column(nullable = false, length = 100) // 길게주는 이유 = 암호화
@@ -42,4 +42,6 @@ public class User {
 
     @CreationTimestamp // 시간이 자동입력
     private Timestamp createDate;
+
+    private String oauth; // kakao, google
 }
