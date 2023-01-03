@@ -1,10 +1,15 @@
 package com.pyo.blog.service;
 
 
+import com.pyo.blog.config.auth.PrincipalDetail;
 import com.pyo.blog.model.RoleType;
 import com.pyo.blog.model.User;
 import com.pyo.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +25,10 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+
+
+
+
     @Transactional //전체가 성공시 commit 실패시 rollback
     public void 회원가입(User user){
         String rawPassword = user.getPassword(); // 원문
@@ -30,6 +39,25 @@ public class UserService {
 
     }
 
+    @Transactional
+    public void 회원수정(User user){
+    //수정시에는 영속성 컨텍스트에 User 오브젝트를 영속화 시킨 후
+        //그 User 오브젝트를 수정
+        User persistence = userRepository.findById(user.getId()).orElseThrow(()->{
+            return new IllegalArgumentException("아이디를 찾지 못했습니다");
+        });
+
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        persistence.setPassword(encPassword);
+        persistence.setEmail(user.getEmail());
+
+        //회원수정 함수 종료시 = 서비스 종료 = 트랜잭션의 종료 = commit이 자동으로
+        // 영속화된 persistence 객체의 변화가 감지되면 더티체킹이 되어 update문 날려줌
+
+
+    }
+}
             //옛날 방식의 로그인
 //    @Transactional(readOnly = true) //select할떄 트랜잭션 시작, 서비스 종료시 트랜잭션 종료
 //    // 사용하는 이유는 정합성을 보장하기 위해서
@@ -38,4 +66,4 @@ public class UserService {
 //
 //
 //    }
-}
+

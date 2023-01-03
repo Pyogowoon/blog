@@ -37,9 +37,9 @@ spring:
       fail-on-empty-beans: false
 
 
-    spring:
-      devtools:
-        livereload:
-          enabled: true
+#    spring:
+#      devtools:
+#        livereload:
+#          enabled: true
 
 

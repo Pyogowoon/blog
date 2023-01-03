@@ -27,6 +27,8 @@ public class SecurityConfig {
     @Autowired
     private PrincipalDetailService principalDetailService;
 
+
+
     //1-2 WebSecurityConfiguerAdapter를 상속해서 AuthenticationManager를 bean으로 등록했지만
     //이제 직접 등록하면 된다.
     @Bean
@@ -42,7 +44,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()  //csrf 토튼 비활성 (테스트시 걸어두는게 좋다)
                 .authorizeRequests()
-                .antMatchers("/","/blog","/auth/**","/js/**","/css/**","image/**","/dummy/**")
+                .antMatchers("/","/blog","/auth/**","/js/**","/css/**","/image/**","/dummy/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -73,6 +75,10 @@ public class SecurityConfig {
 
 
 
+
+}
+
+
 //    public class MyCustom
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception{
@@ -82,8 +88,6 @@ public class SecurityConfig {
 //                .addFilter(new jwt)
 //    }
 
-
-}
 
 //    // 1-12. 정적 파일 인증 무시.(2.7.0이상 부터는 이런방식으로 설정해야함 -> bean은 임시로 등록안해놓았음)
 //    public WebSecurityCustomizer webSecurityCustomizer() {

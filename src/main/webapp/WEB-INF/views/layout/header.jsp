@@ -6,8 +6,8 @@
 
 <sec:authentication property="principal" var="principal"/>
 
-
 </sec:authorize>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
