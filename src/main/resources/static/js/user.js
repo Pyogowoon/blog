@@ -44,7 +44,7 @@ save: function(){
      //                console.log(resp);
                      location.href="/";
              }).fail(function(error){
-                 alert(JSON.stringify(error));
+                 alert("중복된 아이디입니다.");
              });
 
          },

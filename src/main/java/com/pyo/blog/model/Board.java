@@ -1,5 +1,6 @@
 package com.pyo.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,7 +40,9 @@ public class Board {
 
     @OneToMany(mappedBy="board" , fetch = FetchType.EAGER) // mappedBy = 연관관계의 주인이 아니다(난 FK가 아니에요) DB에 칼럼 만들지않음.
     // board == reply에 있는 필드 board; 임
-    private List<Reply> reply; //따로 Joincolumn이 필요없다.
+    @JsonIgnoreProperties({"board"})  //무한참조를 방지해줌. (다이렉트로 불러올땐 효과없음)
+    @OrderBy("id desc")
+    private List<Reply> replys; //따로 Joincolumn이 필요없다.
     // 그 이유는 조인을 할건 아니고 어차피 따로 자바 오브젝트로만 활용할거니까
 
     @CreationTimestamp
