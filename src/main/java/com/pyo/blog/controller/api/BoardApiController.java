@@ -43,6 +43,14 @@ public class BoardApiController {
         boardService.댓글쓰기(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
-    
+
+    //boardId는 주소 만들려고 넣은것이고 replyId는 이걸로 댓글삭제 하기위해서
+    @DeleteMapping("/api/board/{boardId}/{replyId}")
+    public ResponseDto<Integer> replyDelete(@PathVariable int replyId){
+
+        boardService.댓글삭제(replyId);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+
+    }
 
 }

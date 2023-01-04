@@ -39,10 +39,12 @@ save: function(){
                     //생긴게 json이라면 javascript 오브젝트로 변경해줌
 
              }).done(function(resp){ //응답 값이 여기로 담김, json이 object로 변환되서 이곳에
-
+                    if(resp.status === 500){
+                    alert("회원가입에 실패하였습니다.");
+                    }else{
                      alert("회원가입이 완료되었습니다.");
-     //                console.log(resp);
                      location.href="/";
+                     }
              }).fail(function(error){
                  alert("중복된 아이디입니다.");
              });
